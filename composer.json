@@ -1,18 +1,17 @@
 {
-    "name": "jonathanpmartins/larafocus",
+    "name": "ownerpro/larafocus",
     "description": "Laravel Package for integration with FocusNFe API.",
     "license": "MIT",
-    "version": "0.2.0",
     "authors": [
         {
             "name": "Jonathan Martins",
             "email": "web@jonathanmartins.com.br"
         }
     ],
-    "homepage": "https://github.com/jonathanpmartins/larafocus",
+    "homepage": "https://github.com/OwnerPro-Software/larafocus",
     "support": {
-        "issues": "https://github.com/jonathanpmartins/larafocus/issues",
-        "source": "https://github.com/jonathanpmartins/larafocus"
+        "issues": "https://github.com/OwnerPro-Software/larafocus/issues",
+        "source": "https://github.com/OwnerPro-Software/larafocus"
     },
     "keywords": [
         "focus",

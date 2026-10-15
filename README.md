@@ -4,7 +4,7 @@ Laravel package for integration with the [FocusNFe](https://focusnfe.com.br/) AP
 
 Manage NFSe (electronic service invoices), companies, webhooks, and search municipalities — all through a clean, type-safe API with fully validated DTOs.
 
-[![CI](https://github.com/jonathanpmartins/larafocus/actions/workflows/ci.yml/badge.svg)](https://github.com/jonathanpmartins/larafocus/actions)
+[![CI](https://github.com/OwnerPro-Software/larafocus/actions/workflows/ci.yml/badge.svg)](https://github.com/OwnerPro-Software/larafocus/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 ## Requirements
@@ -15,8 +15,11 @@ Manage NFSe (electronic service invoices), companies, webhooks, and search munic
 
 ## Installation
 
+The package is not published on Packagist; install it straight from GitHub:
+
 ```bash
-composer require jonathanpmartins/larafocus
+composer config repositories.larafocus vcs https://github.com/OwnerPro-Software/larafocus
+composer require ownerpro/larafocus
 ```
 
 The service provider is auto-discovered.
