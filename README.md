@@ -292,6 +292,8 @@ try {
 }
 ```
 
+A CNPJ on `Prestador`, `Tomador` or `Intermediario` must be 14 positions, unmasked and uppercase: the first 12 are digits or letters `A-Z`, the last 2 (check digits) are digits. Both the numeric format (`12345678000195`) and the alphanumeric one issued by Receita Federal since July 2026 (`12ABC34501DE35`) are accepted. The check digits themselves are not verified.
+
 API errors are captured in `FocusResponse::$errors` without throwing:
 
 ```php

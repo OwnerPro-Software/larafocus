@@ -32,7 +32,7 @@ readonly class Tomador
         }
 
         if ($this->cnpj !== null) {
-            self::validatePattern('cnpj', $this->cnpj, '/^\d{14}$/');
+            self::validatePattern('cnpj', $this->cnpj, '/^[0-9A-Z]{12}\d{2}$/');
         }
 
         if ($this->razao_social !== null) {

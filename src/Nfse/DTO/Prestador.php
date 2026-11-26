@@ -16,7 +16,7 @@ readonly class Prestador
         public string $inscricao_municipal,
         public ?string $codigo_municipio = null,
     ) {
-        self::validatePattern('cnpj', $this->cnpj, '/^\d{14}$/');
+        self::validatePattern('cnpj', $this->cnpj, '/^[0-9A-Z]{12}\d{2}$/');
 
         if ($this->codigo_municipio !== null) {
             self::validatePattern('codigo_municipio', $this->codigo_municipio, '/^\d{7}$/');

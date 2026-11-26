@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Http\Client\Request;
+use Illuminate\Support\Facades\Http;
 use Larafocus\Focus;
 use Larafocus\Nfse;
 use Larafocus\Nfse\DTO\Enums\NaturezaOperacao;
@@ -97,6 +99,28 @@ test('create method accepts array and converts to DTO', function () {
     ]);
 
     $this->assertRequest('POST', '/nfse?ref=REF-002', $response);
+});
+
+test('create method sends alphanumeric cnpjs unchanged', function () {
+    Focus::nfse()->create('REF-003', [
+        'data_emissao' => '2024-01-15T10:30:00-03:00',
+        'natureza_operacao' => '1',
+        'optante_simples_nacional' => true,
+        'prestador' => ['cnpj' => '12ABC34501DE35', 'inscricao_municipal' => '12345'],
+        'tomador' => ['cnpj' => 'AB12CD34EF5678'],
+        'intermediario' => ['cnpj' => '0000000000ZZ99'],
+        'servico' => [
+            'valor_servicos' => 1500.00,
+            'iss_retido' => false,
+            'item_lista_servico' => '1.07',
+            'discriminacao' => 'Desenvolvimento de software',
+            'codigo_municipio' => '3550308',
+        ],
+    ]);
+
+    Http::assertSent(fn (Request $request): bool => $request['prestador']['cnpj'] === '12ABC34501DE35'
+        && $request['tomador']['cnpj'] === 'AB12CD34EF5678'
+        && $request['intermediario']['cnpj'] === '0000000000ZZ99');
 });
 
 test('cancel method accepts NfseCancelRequest DTO', function () {

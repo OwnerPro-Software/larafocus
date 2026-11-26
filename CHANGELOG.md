@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+- `Prestador`, `Tomador` and `Intermediario` accept the alphanumeric CNPJ issued by Receita Federal since 2026-07-31: 14 positions, the first 12 digits or uppercase letters, the last 2 digits (`/^[0-9A-Z]{12}\d{2}$/`). They used to throw `InvalidDtoException` for any CNPJ with letters, before the request reached Focus. Numeric CNPJs are unaffected; masked or lowercase values are still rejected.
+
+### Known limitations
+- Whether the Focus API accepts an alphanumeric CNPJ has not been confirmed with Focus. No public statement was found, and the `openapi/` copies still describe the field as numeric only. Pending confirmation for `POST /nfse` (prestador, tomador, intermediário), `/empresas` and `/hooks`, and for the form in which Focus returns the CNPJ in responses and webhooks (`cnpj_prestador`: masked or not, letter case).
+
 ## [0.2.1] - 2026-10-15
 
 ### Changed

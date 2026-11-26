@@ -174,13 +174,23 @@ test('validates cpf rejects non-digits', function () {
     new Tomador(cpf: '1234567890A');
 })->throws(InvalidDtoException::class);
 
-test('validates cnpj must be 14 digits', function () {
-    new Tomador(cnpj: '123');
-})->throws(InvalidDtoException::class);
+test('accepts an alphanumeric cnpj and sends it unchanged', function () {
+    $t = new Tomador(cnpj: '12ABC34501DE35');
 
-test('validates cnpj rejects non-digits', function () {
-    new Tomador(cnpj: '1234567800019A');
-})->throws(InvalidDtoException::class);
+    expect($t->toArray())->toHaveKey('cnpj', '12ABC34501DE35');
+});
+
+test('rejects a malformed cnpj', function (string $cnpj) {
+    new Tomador(cnpj: $cnpj);
+})->with([
+    'shorter than 14 positions' => '12ABC34501DE3',
+    'longer than 14 positions' => '12ABC34501DE350',
+    'letter in the first check digit' => '12ABC34501DEA5',
+    'letter in the second check digit' => '12ABC34501DE3A',
+    'lowercase letters' => '12abc34501de35',
+    'masked' => '12.ABC.345/01DE-35',
+    'symbol among the first 12 positions' => '12ABC3450_DE35',
+])->throws(InvalidDtoException::class);
 
 test('validates razao_social max 115 characters', function () {
     new Tomador(razao_social: str_repeat('A', 116));

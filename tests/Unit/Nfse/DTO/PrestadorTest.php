@@ -54,13 +54,23 @@ test('fromArray handles missing optional fields', function () {
     expect($p->codigo_municipio)->toBeNull();
 });
 
-test('validates cnpj must be 14 digits', function () {
-    new Prestador(cnpj: '123', inscricao_municipal: '12345');
-})->throws(InvalidDtoException::class);
+test('accepts an alphanumeric cnpj and sends it unchanged', function () {
+    $p = new Prestador(cnpj: '12ABC34501DE35', inscricao_municipal: '12345');
 
-test('validates cnpj rejects non-digits', function () {
-    new Prestador(cnpj: '1234567800019A', inscricao_municipal: '12345');
-})->throws(InvalidDtoException::class);
+    expect($p->toArray())->toHaveKey('cnpj', '12ABC34501DE35');
+});
+
+test('rejects a malformed cnpj', function (string $cnpj) {
+    new Prestador(cnpj: $cnpj, inscricao_municipal: '12345');
+})->with([
+    'shorter than 14 positions' => '12ABC34501DE3',
+    'longer than 14 positions' => '12ABC34501DE350',
+    'letter in the first check digit' => '12ABC34501DEA5',
+    'letter in the second check digit' => '12ABC34501DE3A',
+    'lowercase letters' => '12abc34501de35',
+    'masked' => '12.ABC.345/01DE-35',
+    'symbol among the first 12 positions' => '12ABC3450_DE35',
+])->throws(InvalidDtoException::class);
 
 test('validates codigo_municipio pattern', function () {
     new Prestador(cnpj: '12345678000195', inscricao_municipal: '12345', codigo_municipio: '123');
