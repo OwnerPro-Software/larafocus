@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.2.2] - 2026-11-26
 
 ### Changed
 - `Prestador`, `Tomador` and `Intermediario` accept the alphanumeric CNPJ issued by Receita Federal since 2026-07-31: 14 positions, the first 12 digits or uppercase letters, the last 2 digits (`/^[0-9A-Z]{12}\d{2}$/`). They used to throw `InvalidDtoException` for any CNPJ with letters, before the request reached Focus. Numeric CNPJs are unaffected; masked or lowercase values are still rejected.
